@@ -44,7 +44,7 @@ const VIDEOS = [
   { cat: "comedy", title: "", link: "" },
 
   // ---- INTERVIEWS ----
-  { cat: "interviews", title: "", link: "" },
+  { cat: "interviews", title: "SUPR", link: "https://youtube.com/shorts/yc2T-l00Ks0?feature=share" },
   { cat: "interviews", title: "", link: "" },
   { cat: "interviews", title: "", link: "" },
 
