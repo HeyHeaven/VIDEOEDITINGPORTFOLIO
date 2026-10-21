@@ -29,9 +29,11 @@ const VIDEOS = [
   { cat: "food", title: "", link: "https://youtube.com/shorts/w8RgmXDuAY0?feature=share" },
 
   // ---- VLOGS ----
-  { cat: "vlog", title: "", link: "" },
-  { cat: "vlog", title: "", link: "" },
-  { cat: "vlog", title: "", link: "" },
+  { cat: "vlog", title: "", link: "https://youtu.be/kbQt_sXKvb0?si=G1FFmu001TQYQMVw" },
+  { cat: "vlog", title: "", link: "https://youtu.be/o3iDAbqjOIU?si=a_q4NcyeGamjE9co" },
+  { cat: "vlog", title: "", link: "https://youtu.be/rvdbOV-jZaU?si=w6ygDNrdbcJOcVQ-" },
+  { cat: "vlog", title: "", link: "https://youtu.be/8TZOPMOrjJU?si=j2srVnDwGLVL8Wpj" },
+
 
   // ---- AI VIDEOS ----
   { cat: "ai", title: "", link: "https://youtube.com/shorts/yF4yMOFuV64?feature=share" },
