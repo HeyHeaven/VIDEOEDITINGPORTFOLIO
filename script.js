@@ -14,13 +14,16 @@ const CATEGORIES = [
   { id: "informative", name: "Informative Creators",      note: "Clear, engaging edits for explainer content.",    tint: "#3f6a7a" }
 ];
 
-// VIDEO SLOTS. Paste the full YouTube link between the quotes of "link".
+// VIDEO SLOTS. Paste a YouTube OR Instagram reel link between the quotes of "link".
 // Works with any of these:
 //   https://www.youtube.com/watch?v=XXXXXXXXXXX
 //   https://www.youtube.com/shorts/XXXXXXXXXXX
 //   https://youtu.be/XXXXXXXXXXX
-// "title" is optional. "vertical" is optional too: shorts links are detected
-// automatically; for a vertical reel with a normal link, set vertical: true.
+//   https://www.instagram.com/reel/XXXXXXXXXXX/
+// "title" is optional. "vertical" is optional too: shorts and Instagram reels
+// are detected automatically; for a vertical YouTube video with a normal link,
+// set vertical: true.
+// "thumb" is optional: a cover image for Instagram reels, like thumb: "thumbs/food1.jpg"
 // Empty slots are ignored. To add more, copy a line and paste it below.
 const VIDEOS = [
   // ---- FOOD VLOGGERS & REVIEWERS ----
@@ -33,7 +36,6 @@ const VIDEOS = [
   { cat: "vlog", title: "", link: "https://youtu.be/o3iDAbqjOIU?si=a_q4NcyeGamjE9co" },
   { cat: "vlog", title: "", link: "https://youtu.be/rvdbOV-jZaU?si=w6ygDNrdbcJOcVQ-" },
   { cat: "vlog", title: "", link: "https://youtu.be/8TZOPMOrjJU?si=j2srVnDwGLVL8Wpj" },
-
 
   // ---- AI VIDEOS ----
   { cat: "ai", title: "", link: "https://youtube.com/shorts/yF4yMOFuV64?feature=share" },
@@ -61,6 +63,28 @@ const VIDEOS = [
   { cat: "informative", title: "", link: "https://youtube.com/shorts/g1xUEkjIVAg?feature=share" }
 ];
 
+// CREATORS I'VE WORKED WITH
+// followers: type it yourself, like "125K" (leave "" to hide it)
+// img: path to a saved profile pic, like "creators/madhavrox.jpg"
+//      (leave "" to show a letter circle instead)
+const CREATORS = [
+  { handle: "naughtythenani",              followers: "", img: "" },
+  { handle: "madhavrox",                   followers: "", img: "" },
+  { handle: "seriesmaddy",                 followers: "", img: "" },
+  { handle: "hellodeeep",                  followers: "", img: "" },
+  { handle: "tasty_table_tales",           followers: "", img: "" },
+  { handle: "avenoyasjournal",             followers: "", img: "" },
+  { handle: "mediummasala",                followers: "", img: "" },
+  { handle: "swaritkapoor_",               followers: "", img: "" },
+  { handle: "whaaatislife",                followers: "", img: "" },
+  { handle: "vidhiidiariess",              followers: "", img: "" },
+  { handle: "theskygupta",                 followers: "", img: "" },
+  { handle: "biswakalyanrath",             followers: "", img: "" },
+  { handle: "marketsbyaryan",              followers: "", img: "" },
+  { handle: "sakshilalwani_nutritionist",  followers: "", img: "" },
+  { handle: "jhakaasflavoursofmumbai",     followers: "", img: "" }
+];
+
 // =====================================================
 //  DON'T NEED TO TOUCH BELOW
 // =====================================================
@@ -79,16 +103,26 @@ function ytId(s) {
   return /^[A-Za-z0-9_-]{11}$/.test(s) ? s : "";
 }
 
-const thumb = id => `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+function igId(s) {
+  const m = (s || "").match(/instagram\.com\/(?:[\w.]+\/)?(?:reel|reels|p|tv)\/([A-Za-z0-9_-]+)/);
+  return m ? m[1] : "";
+}
+
+const ytThumb = id => `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
 
 function videosOf(catId) {
   return VIDEOS
-    .filter(v => v.cat === catId && ytId(v.link))
-    .map(v => ({
-      id: ytId(v.link),
-      title: v.title || "",
-      vertical: typeof v.vertical === "boolean" ? v.vertical : /\/shorts\//.test(v.link)
-    }));
+    .filter(v => v.cat === catId && (igId(v.link) || ytId(v.link)))
+    .map(v => {
+      const ig = igId(v.link);
+      return {
+        type: ig ? "ig" : "yt",
+        id: ig || ytId(v.link),
+        title: v.title || "",
+        thumb: v.thumb || (ig ? "" : ytThumb(ytId(v.link))),
+        vertical: ig ? true : (typeof v.vertical === "boolean" ? v.vertical : /\/shorts\//.test(v.link))
+      };
+    });
 }
 
 // category cards
@@ -97,7 +131,8 @@ CATEGORIES.forEach(c => {
   const btn = document.createElement("button");
   btn.className = "card";
   btn.style.backgroundColor = c.tint;
-  if (list[0]) btn.style.backgroundImage = `url(${thumb(list[0].id)})`;
+  const cover = list.find(v => v.thumb);
+  if (cover) btn.style.backgroundImage = `url(${cover.thumb})`;
   const count = list.length ? `${list.length} video${list.length === 1 ? "" : "s"}` : "coming soon";
   btn.innerHTML = `<div class="card-info"><h3>${c.name}</h3><span>${count}</span></div>`;
   btn.addEventListener("click", () => openCategory(c));
@@ -115,10 +150,16 @@ function openCategory(c) {
   list.forEach(v => {
     const wrap = document.createElement("div");
     const box = document.createElement("div");
-    box.className = "vid" + (v.vertical ? " vertical" : "");
-    box.innerHTML = `<img src="${thumb(v.id)}" alt="${v.title || c.name}" loading="lazy"><span class="play"></span>`;
+    box.className = "vid" + (v.vertical ? " vertical" : "") + (v.type === "ig" ? " ig" : "");
+    box.innerHTML =
+      (v.thumb ? `<img src="${v.thumb}" alt="${v.title || c.name}" loading="lazy">` : "") +
+      (v.type === "ig" && !v.thumb ? '<span class="ig-label">Instagram reel</span>' : "") +
+      '<span class="play"></span>';
     box.addEventListener("click", () => {
-      box.innerHTML = `<iframe src="https://www.youtube.com/embed/${v.id}?autoplay=1&rel=0&modestbranding=1&playsinline=1" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
+      const src = v.type === "ig"
+        ? `https://www.instagram.com/p/${v.id}/embed`
+        : `https://www.youtube.com/embed/${v.id}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
+      box.innerHTML = `<iframe src="${src}" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>`;
     }, { once: true });
     wrap.appendChild(box);
     if (v.title) {
@@ -158,7 +199,112 @@ if (me && me.dataset.hover) {
   me.addEventListener("click", () => { me.src = me.getAttribute("src") === a ? b : a; });
 }
 
-// scroll reveal
+// ---------- creators slider ----------
+function creatorAvatar(c) {
+  const fallback = () => {
+    const d = document.createElement("div");
+    d.className = "avatar";
+    d.textContent = c.handle.replace(/[^a-z0-9]/gi, "")[0].toUpperCase();
+    return d;
+  };
+  if (!c.img) return fallback();
+  const i = new Image();
+  i.className = "avatar";
+  i.alt = "";
+  i.loading = "lazy";
+  i.src = c.img;
+  i.onerror = () => i.replaceWith(fallback());
+  return i;
+}
+
+const track = document.getElementById("track");
+
+// the list is shown 3 times so the loop never runs out
+[...CREATORS, ...CREATORS, ...CREATORS].forEach((c, n) => {
+  const a = document.createElement("a");
+  a.className = "creator";
+  a.href = `https://www.instagram.com/${c.handle}/`;
+  a.target = "_blank";
+  a.rel = "noopener";
+  if (n >= CREATORS.length) { a.setAttribute("aria-hidden", "true"); a.tabIndex = -1; }
+  a.appendChild(creatorAvatar(c));
+  const t = document.createElement("div");
+  t.innerHTML = `<b>@${c.handle}</b>` + (c.followers ? `<span>${c.followers} followers</span>` : "");
+  a.appendChild(t);
+  track.appendChild(a);
+});
+track.querySelectorAll("a,img").forEach(x => x.draggable = false);
+
+// auto-scroll + manual scroll
+const marquee = document.querySelector(".marquee");
+const SPEED = 40; // pixels per second, raise it to go faster
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let pos = 0, last = 0, holdUntil = 0;
+let hovering = false, touching = false, dragging = false;
+let startX = 0, startScroll = 0, moved = 0;
+
+const oneSet = () => track.scrollWidth / 3;
+const pauseFor = ms => { holdUntil = performance.now() + ms; };
+
+marquee.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") hovering = true; });
+marquee.addEventListener("pointerleave", () => { hovering = false; });
+marquee.addEventListener("wheel", () => pauseFor(2500), { passive: true });
+marquee.addEventListener("touchstart", () => { touching = true; }, { passive: true });
+marquee.addEventListener("touchend", () => { touching = false; pauseFor(2000); });
+
+// click and drag with a mouse
+marquee.addEventListener("pointerdown", e => {
+  if (e.pointerType !== "mouse") return;
+  dragging = true; moved = 0; startX = e.clientX; startScroll = marquee.scrollLeft;
+  marquee.classList.add("drag");
+});
+addEventListener("pointermove", e => {
+  if (!dragging) return;
+  const d = e.clientX - startX;
+  moved = Math.max(moved, Math.abs(d));
+  marquee.scrollLeft = startScroll - d;
+});
+const endDrag = () => {
+  if (!dragging) return;
+  dragging = false;
+  marquee.classList.remove("drag");
+  pauseFor(2000);
+};
+addEventListener("pointerup", endDrag);
+addEventListener("pointercancel", endDrag);
+
+// a drag should not count as a click on a card
+marquee.addEventListener("click", e => {
+  if (moved > 5) { e.preventDefault(); e.stopPropagation(); moved = 0; }
+}, true);
+
+// endless loop in both directions
+marquee.addEventListener("scroll", () => {
+  const w = oneSet();
+  if (marquee.scrollLeft >= 2 * w) marquee.scrollLeft -= w;
+  else if (marquee.scrollLeft <= 0) marquee.scrollLeft += w;
+});
+
+function tick(t) {
+  const dt = Math.min(t - last, 50) / 1000;
+  last = t;
+  if (hovering || touching || dragging || performance.now() < holdUntil) {
+    pos = marquee.scrollLeft;
+  } else {
+    pos += SPEED * dt;
+    if (pos >= 2 * oneSet()) pos -= oneSet();
+    marquee.scrollLeft = pos;
+  }
+  requestAnimationFrame(tick);
+}
+requestAnimationFrame(t => {
+  pos = oneSet();
+  marquee.scrollLeft = pos;
+  last = t;
+  if (!reduceMotion) tick(t);
+});
+
+// ---------- scroll reveal ----------
 const io = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
 }, { threshold: 0.15 });
