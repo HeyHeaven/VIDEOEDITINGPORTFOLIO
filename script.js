@@ -11,7 +11,7 @@ const CATEGORIES = [
   { id: "comedy",      name: "Edits for Comedians",       note: "Fast, punchy cuts for stand-up and sketches.",    tint: "#7a3f55" },
   { id: "interviews",  name: "Interviews",                note: "Conversations that people listen",                tint: "#8a7a2a" },
   { id: "ads",         name: "Performance Ads",           note: "Ads built to convert.",                           tint: "#3f6b55" },
-  { id: "informative", name: "Informative Creators",      note: "Clear, engaging edits for explainer content.",    tint: "#3f6a7a" }
+  { id: "informative", name: "Lifestyle Content",      note: "Clear, engaging edits for Lifestyle content.",    tint: "#3f6a7a" }
 ];
 
 // VIDEO SLOTS. Paste a YouTube OR Instagram reel link between the quotes of "link".
@@ -59,7 +59,9 @@ const VIDEOS = [
   { cat: "ads", title: "", link: "https://youtube.com/shorts/q5P4ZPNnhss?feature=share" },
   { cat: "ads", title: "", link: "https://youtube.com/shorts/ef1PcznYZiY?feature=share" },
   { cat: "ads", title: "", link: "https://youtube.com/shorts/1HnaCDT-Frg?feature=share" },
-
+  { cat: "informative", title: "", link: "https://youtube.com/shorts/bBNwKa1Kqx8?feature=share" },
+  { cat: "informative", title: "", link: "https://youtube.com/shorts/19SdupF-V04?feature=share" },
+  { cat: "informative", title: "", link: "https://youtube.com/shorts/hUmJwJCIMt0?feature=share" },
   // ---- EDITS FOR INFORMATIVE CREATORS ----
   { cat: "ads", title: "", link: "https://youtube.com/shorts/jzxqxcW5Utg?feature=share" },
   { cat: "ads", title: "", link: "https://youtube.com/shorts/qhv9vJrUA70?feature=share" },
