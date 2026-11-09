@@ -61,10 +61,9 @@ const VIDEOS = [
   { cat: "ads", title: "", link: "https://youtube.com/shorts/1HnaCDT-Frg?feature=share" },
 
   // ---- EDITS FOR INFORMATIVE CREATORS ----
-  { cat: "informative", title: "", link: "https://youtube.com/shorts/jzxqxcW5Utg?feature=share" },
-  { cat: "informative", title: "", link: "https://youtube.com/shorts/ef1PcznYZiY?feature=share" },
-  { cat: "informative", title: "", link: "https://youtube.com/shorts/qhv9vJrUA70?feature=share" },
-  { cat: "informative", title: "", link: "https://youtube.com/shorts/g1xUEkjIVAg?feature=share" }
+  { cat: "ads", title: "", link: "https://youtube.com/shorts/jzxqxcW5Utg?feature=share" },
+  { cat: "ads", title: "", link: "https://youtube.com/shorts/qhv9vJrUA70?feature=share" },
+  { cat: "ads", title: "", link: "https://youtube.com/shorts/g1xUEkjIVAg?feature=share" }
 ];
 
 // CREATORS I'VE WORKED WITH
