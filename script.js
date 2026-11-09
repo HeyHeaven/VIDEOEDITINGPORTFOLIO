@@ -27,7 +27,7 @@ const CATEGORIES = [
 // Empty slots are ignored. To add more, copy a line and paste it below.
 const VIDEOS = [
   // ---- FOOD VLOGGERS & REVIEWERS ----
-  { cat: "food", title: "", link: "https://youtube.com/shorts/g1xUEkjIVAg?feature=share" },
+  { cat: "food", title: "", link: "https://youtube.com/shorts/MHucJocN5FQ?feature=share" },
   { cat: "food", title: "", link: "https://youtube.com/shorts/3khH6w1YBUQ?feature=share" },
   { cat: "food", title: "", link: "https://youtube.com/shorts/w8RgmXDuAY0?feature=share" },
 
@@ -44,22 +44,26 @@ const VIDEOS = [
 
   // ---- EDITS FOR COMEDIANS ----
   { cat: "comedy", title: "", link: "https://youtube.com/shorts/90FYGk2qtRY?feature=share" },
-  { cat: "comedy", title: "", link: "" },
-  { cat: "comedy", title: "", link: "" },
+  { cat: "comedy", title: "", link: "https://youtube.com/shorts/m7n71BeawIQ?feature=share" },
+  { cat: "comedy", title: "", link: "https://youtube.com/shorts/zB5JBSJo3kw?feature=share" },
+  { cat: "comedy", title: "", link: "https://youtube.com/shorts/LcvF_Wy51ts?feature=share" },
+  { cat: "comedy", title: "", link: "https://youtube.com/shorts/LdBHntxaw3Y?feature=share" },
+  
 
   // ---- INTERVIEWS ----
   { cat: "interviews", title: "", link: "https://youtube.com/shorts/yc2T-l00Ks0?feature=share" },
-  { cat: "interviews", title: "", link: "" },
+  { cat: "interviews", title: "", link: "https://youtube.com/shorts/6ZSuaIJJWbU?feature=share" },
   { cat: "interviews", title: "", link: "" },
 
   // ---- PERFORMANCE ADS ----
-  { cat: "ads", title: "", link: "" },
-  { cat: "ads", title: "", link: "" },
-  { cat: "ads", title: "", link: "" },
+  { cat: "ads", title: "", link: "https://youtube.com/shorts/q5P4ZPNnhss?feature=share" },
+  { cat: "ads", title: "", link: "https://youtube.com/shorts/ef1PcznYZiY?feature=share" },
+  { cat: "ads", title: "", link: "https://youtube.com/shorts/1HnaCDT-Frg?feature=share" },
 
   // ---- EDITS FOR INFORMATIVE CREATORS ----
   { cat: "informative", title: "", link: "https://youtube.com/shorts/jzxqxcW5Utg?feature=share" },
   { cat: "informative", title: "", link: "https://youtube.com/shorts/ef1PcznYZiY?feature=share" },
+  { cat: "informative", title: "", link: "https://youtube.com/shorts/qhv9vJrUA70?feature=share" },
   { cat: "informative", title: "", link: "https://youtube.com/shorts/g1xUEkjIVAg?feature=share" }
 ];
 
