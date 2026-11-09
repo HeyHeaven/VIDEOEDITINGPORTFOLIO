@@ -30,6 +30,7 @@ const VIDEOS = [
   { cat: "food", title: "", link: "https://youtube.com/shorts/MHucJocN5FQ?feature=share" },
   { cat: "food", title: "", link: "https://youtube.com/shorts/3khH6w1YBUQ?feature=share" },
   { cat: "food", title: "", link: "https://youtube.com/shorts/w8RgmXDuAY0?feature=share" },
+  { cat: "food", title: "", link: "https://youtube.com/shorts/RI12lix7vL8" },
 
   // ---- VLOGS ----
   { cat: "vlog", title: "", link: "https://youtu.be/kbQt_sXKvb0?si=G1FFmu001TQYQMVw" },
